@@ -558,34 +558,34 @@ func TestManyPartitionsManyClientsLab3(t *testing.T) {
 	GenericTest(t, "Lab3", 5, false, false, true, -1)
 }
 
-func TestPersistOneClientLab3(t *testing.T) {
-	// Test: restarts, one client (Lab3) ...
-	GenericTest(t, "Lab3", 1, false, true, false, -1)
+func TestPersistOneClientChallenge2(t *testing.T) {
+	// Test: restarts, one client (Challenge2) ...
+	GenericTest(t, "Challenge2", 1, false, true, false, -1)
 }
 
-func TestPersistConcurrentLab3(t *testing.T) {
-	// Test: restarts, many clients (Lab3) ...
-	GenericTest(t, "Lab3", 5, false, true, false, -1)
+func TestPersistConcurrentChallenge2(t *testing.T) {
+	// Test: restarts, many clients (Challenge2) ...
+	GenericTest(t, "Challenge2", 5, false, true, false, -1)
 }
 
-func TestPersistConcurrentUnreliableLab3(t *testing.T) {
-	// Test: unreliable net, restarts, many clients (Lab3) ...
-	GenericTest(t, "Lab3", 5, true, true, false, -1)
+func TestPersistConcurrentUnreliableChallenge2(t *testing.T) {
+	// Test: unreliable net, restarts, many clients (Challenge2) ...
+	GenericTest(t, "Challenge2", 5, true, true, false, -1)
 }
 
-func TestPersistPartitionLab3(t *testing.T) {
-	// Test: restarts, partitions, many clients (Lab3) ...
-	GenericTest(t, "Lab3", 5, false, true, true, -1)
+func TestPersistPartitionChallenge2(t *testing.T) {
+	// Test: restarts, partitions, many clients (Challenge2) ...
+	GenericTest(t, "Challenge2", 5, false, true, true, -1)
 }
 
-func TestPersistPartitionUnreliableLab3(t *testing.T) {
-	// Test: unreliable net, restarts, partitions, many clients (Lab3) ...
-	GenericTest(t, "Lab3", 5, true, true, true, -1)
+func TestPersistPartitionUnreliableChallenge2(t *testing.T) {
+	// Test: unreliable net, restarts, partitions, many clients (Challenge2) ...
+	GenericTest(t, "Challenge2", 5, true, true, true, -1)
 }
 
-func TestPersistPartitionUnreliableLinearizableLab3(t *testing.T) {
-	// Test: unreliable net, restarts, partitions, linearizability checks (Lab3) ...
-	GenericTestLinearizability(t, "Lab3", 15, 7, true, true, true, -1)
+func TestPersistPartitionUnreliableLinearizableChallenge2(t *testing.T) {
+	// Test: unreliable net, restarts, partitions, linearizability checks (Challenge2) ...
+	GenericTestLinearizability(t, "Challenge2", 15, 7, true, true, true, -1)
 }
 
 //
@@ -594,7 +594,7 @@ func TestPersistPartitionUnreliableLinearizableLab3(t *testing.T) {
 // also checks that majority discards committed log entries
 // even if minority doesn't respond.
 //
-func TestSnapshotRPCChallenge2(t *testing.T) {
+func TestSnapshotRPCChallenge3(t *testing.T) {
 	const nservers = 3
 	maxraftstate := 1000
 	cfg := make_config(t, nservers, false, maxraftstate)
@@ -602,7 +602,7 @@ func TestSnapshotRPCChallenge2(t *testing.T) {
 
 	ck := cfg.makeClient(cfg.All())
 
-	cfg.begin("Test: InstallSnapshot RPC (Challenge2)")
+	cfg.begin("Test: InstallSnapshot RPC (Challenge3)")
 
 	Put(cfg, ck, "a", "A")
 	check(cfg, t, ck, "a", "A")
@@ -650,7 +650,7 @@ func TestSnapshotRPCChallenge2(t *testing.T) {
 
 // are the snapshots not too huge? 500 bytes is a generous bound for the
 // operations we're doing here.
-func TestSnapshotSizeChallenge2(t *testing.T) {
+func TestSnapshotSizeChallenge3(t *testing.T) {
 	const nservers = 3
 	maxraftstate := 1000
 	maxsnapshotstate := 500
@@ -659,7 +659,7 @@ func TestSnapshotSizeChallenge2(t *testing.T) {
 
 	ck := cfg.makeClient(cfg.All())
 
-	cfg.begin("Test: snapshot size is reasonable (Challenge2)")
+	cfg.begin("Test: snapshot size is reasonable (Challenge3)")
 
 	for i := 0; i < 200; i++ {
 		Put(cfg, ck, "x", "0")
@@ -681,32 +681,32 @@ func TestSnapshotSizeChallenge2(t *testing.T) {
 	cfg.end()
 }
 
-func TestSnapshotRecoverChallenge2(t *testing.T) {
-	// Test: restarts, snapshots, one client (Challenge2) ...
-	GenericTest(t, "Challenge2", 1, false, true, false, 1000)
+func TestSnapshotRecoverChallenge3(t *testing.T) {
+	// Test: restarts, snapshots, one client (Challenge3) ...
+	GenericTest(t, "Challenge3", 1, false, true, false, 1000)
 }
 
-func TestSnapshotRecoverManyClientsChallenge2(t *testing.T) {
-	// Test: restarts, snapshots, many clients (Challenge2) ...
-	GenericTest(t, "Challenge2", 20, false, true, false, 1000)
+func TestSnapshotRecoverManyClientsChallenge3(t *testing.T) {
+	// Test: restarts, snapshots, many clients (Challenge3) ...
+	GenericTest(t, "Challenge3", 20, false, true, false, 1000)
 }
 
-func TestSnapshotUnreliableChallenge2(t *testing.T) {
-	// Test: unreliable net, snapshots, many clients (Challenge2) ...
-	GenericTest(t, "Challenge2", 5, true, false, false, 1000)
+func TestSnapshotUnreliableChallenge3(t *testing.T) {
+	// Test: unreliable net, snapshots, many clients (Challenge3) ...
+	GenericTest(t, "Challenge3", 5, true, false, false, 1000)
 }
 
-func TestSnapshotUnreliableRecoverChallenge2(t *testing.T) {
-	// Test: unreliable net, restarts, snapshots, many clients (Challenge2) ...
-	GenericTest(t, "Challenge2", 5, true, true, false, 1000)
+func TestSnapshotUnreliableRecoverChallenge3(t *testing.T) {
+	// Test: unreliable net, restarts, snapshots, many clients (Challenge3) ...
+	GenericTest(t, "Challenge3", 5, true, true, false, 1000)
 }
 
-func TestSnapshotUnreliableRecoverConcurrentPartitionChallenge2(t *testing.T) {
-	// Test: unreliable net, restarts, partitions, snapshots, many clients (Challenge2) ...
-	GenericTest(t, "Challenge2", 5, true, true, true, 1000)
+func TestSnapshotUnreliableRecoverConcurrentPartitionChallenge3(t *testing.T) {
+	// Test: unreliable net, restarts, partitions, snapshots, many clients (Challenge3) ...
+	GenericTest(t, "Challenge3", 5, true, true, true, 1000)
 }
 
-func TestSnapshotUnreliableRecoverConcurrentPartitionLinearizableChallenge2(t *testing.T) {
-	// Test: unreliable net, restarts, partitions, snapshots, linearizability checks (Challenge2) ...
-	GenericTestLinearizability(t, "Challenge2", 15, 7, true, true, true, 1000)
+func TestSnapshotUnreliableRecoverConcurrentPartitionLinearizableChallenge3(t *testing.T) {
+	// Test: unreliable net, restarts, partitions, snapshots, linearizability checks (Challenge3) ...
+	GenericTestLinearizability(t, "Challenge3", 15, 7, true, true, true, 1000)
 }
